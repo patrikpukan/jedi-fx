@@ -214,7 +214,6 @@ public class Area implements Comparable<Area>
     /**
      * Metoda vyhledá v oblasti charakter s daným názvem, odstraní ho z oblasti a vrátí na něj odkaz.
      *
-     * @param itemName název charakteru
      * @return odstraněný charakter; {@code null}, pokud charakter v oblasti není
      */
     public Character removeCharacter(Character character){
