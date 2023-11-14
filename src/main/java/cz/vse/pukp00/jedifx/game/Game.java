@@ -1,5 +1,9 @@
 package cz.vse.pukp00.jedifx.game;
 
+import cz.vse.pukp00.jedifx.Pozorovatel;
+import cz.vse.pukp00.jedifx.PredmetPozorovani;
+import cz.vse.pukp00.jedifx.ZmenaHry;
+
 import java.util.*;
 
 /**
@@ -12,12 +16,14 @@ import java.util.*;
  * @author Jan Říha
  * @version ZS-2022, 2022-12-14
  */
-public class Game
+public class Game implements PredmetPozorovani
 {
     private boolean gameOver;
     private GameWorld world;
 
     private Set<ICommand> commands;
+
+    private Map<ZmenaHry, Set<Pozorovatel>> seznamPozorovatelu = new HashMap<>();
 
     /**
      * Konstruktor třídy, vytvoří hru a množinu platných příkazů. Hra po
@@ -41,7 +47,10 @@ public class Game
         commands.add(new CommandUse(this));
         commands.add(new CommandFight(this));
         commands.add(new CommandContact(this));
-        
+
+        for (ZmenaHry zmenaHry : ZmenaHry.values()) {
+            seznamPozorovatelu.put(zmenaHry, new HashSet<>());
+        }
     }
 
     /**
@@ -106,6 +115,7 @@ public class Game
 
                 if (world.isVictorious()) {
                     gameOver = true;
+                    upozorniPozorovatele(ZmenaHry.KONEC_HRY);
                 }
 
                 return result;
@@ -145,5 +155,15 @@ public class Game
         }
 
         return result;
+    }
+
+    private void upozorniPozorovatele(ZmenaHry zmenaHry) {
+        for (Pozorovatel pozorovatel : seznamPozorovatelu.get(zmenaHry)) {
+            pozorovatel.aktualizuj();
+        }
+    }
+    @Override
+    public void registruj(ZmenaHry zmenaHry, Pozorovatel pozorovatel) {
+        seznamPozorovatelu.get(zmenaHry).add(pozorovatel);
     }
 }

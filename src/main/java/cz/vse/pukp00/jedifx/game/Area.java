@@ -152,6 +152,10 @@ public class Area implements Comparable<Area>
         return null;
     }
 
+    public Set<Area> getExits() {
+        return exits;
+    }
+
     /**
      * Metoda přidá předmět <i>(objekt třídy {@link Item})</i> do oblasti.
      *
@@ -310,5 +314,10 @@ public class Area implements Comparable<Area>
     public int compareTo(Area area)
     {
         return name.compareTo(area.getName());
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

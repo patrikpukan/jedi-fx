@@ -1,4 +1,8 @@
 package cz.vse.pukp00.jedifx.game;
+import cz.vse.pukp00.jedifx.Pozorovatel;
+import cz.vse.pukp00.jedifx.PredmetPozorovani;
+import cz.vse.pukp00.jedifx.ZmenaHry;
+
 import java.util.*;
 /**
  * Třída představující mapu oblastí herního světa. V datovém atributu
@@ -13,10 +17,11 @@ import java.util.*;
  * @author Jan Říha
  * @version ZS-2022, 2022-12-14
  */
-public class GameWorld
+public class GameWorld implements PredmetPozorovani
 {
     private Area currentArea;
     private Inventory playerInventory;
+    private Map<ZmenaHry, Set<Pozorovatel>> seznamPozorovatelu = new HashMap<>();
 
     /**
      * Konstruktor třídy, vytvoří jednotlivé oblasti, propojí je pomocí východů a vloží do nich předměty.
@@ -83,7 +88,10 @@ public class GameWorld
 
         currentArea = lod;
         playerInventory = new Inventory("playerInventory");
-        
+
+        for (ZmenaHry zmenaHry: ZmenaHry.values()) {
+            seznamPozorovatelu.put(zmenaHry, new HashSet<>());
+        }
     }
 
     /**
@@ -115,7 +123,9 @@ public class GameWorld
     public void setCurrentArea(Area currentArea)
     {
         this.currentArea = currentArea;
+        upozorniPozorovatele(ZmenaHry.ZMENA_MISTNOSTI);
     }
+
     
     /**
      * Metoda vrací odkaz ziadany predmet.
@@ -138,5 +148,15 @@ public class GameWorld
         return currentArea.getName().equals("radioveza")
                      && playerInventory.containsItem("transmiter");
                     // && ...
+    }
+
+    private void upozorniPozorovatele(ZmenaHry zmenaHry) {
+        for (Pozorovatel pozorovatel : seznamPozorovatelu.get(zmenaHry)) {
+            pozorovatel.aktualizuj();
+        }
+    }
+    @Override
+    public void registruj(ZmenaHry zmenaHry, Pozorovatel pozorovatel) {
+        seznamPozorovatelu.get(zmenaHry).add(pozorovatel);
     }
 }
