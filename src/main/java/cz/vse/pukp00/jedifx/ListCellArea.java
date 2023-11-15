@@ -4,6 +4,11 @@ import cz.vse.pukp00.jedifx.game.Area;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 
+/**
+ * Trieda zobrazuje graficke oblasti
+ *
+ *
+ */
 public class ListCellArea extends ListCell<Area> {
     @Override
     protected void updateItem(Area area, boolean empty) {

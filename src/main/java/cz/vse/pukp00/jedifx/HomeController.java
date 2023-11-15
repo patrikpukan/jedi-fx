@@ -21,6 +21,11 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.*;
 
+/**
+ * JavaFX Controller
+ *
+ *
+ */
 public class HomeController {
 
     @FXML
@@ -51,6 +56,11 @@ public class HomeController {
 
     private Map<String, Point2D> souradniceProstoru = new HashMap<>();
 
+    /**
+     * Metoda spusta graficky program
+     *
+     *
+     */
     @FXML
     private void initialize() {
         vystup.appendText(game.getPrologue()+"\n\n");
@@ -81,6 +91,11 @@ public class HomeController {
 
     }
 
+    /**
+     * Metoda vklada suradnice do grafickeho prevedenia
+     *
+     *
+     */
     private void vlozSouradnice() {
         souradniceProstoru.put("lod", new Point2D(6,105));
         souradniceProstoru.put("strom", new Point2D(88,105));
@@ -118,12 +133,21 @@ public class HomeController {
 
     }
 
+    /**
+     * Metoda aktualizuje polohu na mape
+     *
+     */
     private void aktualizujPolohuHrace(){
         String menoProstoru = game.getWorld().getCurrentArea().getName();
         hrac.setLayoutX(souradniceProstoru.get(menoProstoru).getX());
         hrac.setLayoutY(souradniceProstoru.get(menoProstoru).getY());
     }
 
+    /**
+     * Metoda kontroluje koniec hry
+     *
+     *
+     */
     private void aktualizujKonecHry() {
         //System.out.print("aktualizuj koneeec");
         if (game.isGameOver()) {
@@ -137,6 +161,7 @@ public class HomeController {
 
     }
 
+
     @FXML
     private void odesliVstup(ActionEvent actionEvent) {
         String prikaz = vstup.getText();
@@ -145,6 +170,11 @@ public class HomeController {
         zpracujPrikaz(prikaz);
     }
 
+    /**
+     * Metoda spustujca sa za kazdym spracovanim prikazu
+     *
+     *
+     */
     private void zpracujPrikaz(String prikaz) {
         vystup.appendText("> " + prikaz +"\n");
         String vysledek = game.process(prikaz);
@@ -172,6 +202,11 @@ public class HomeController {
 
     }
 
+    /**
+     * Metoda spracuje klik na tlacidlo "Ukoncit hru".
+     *
+     *
+     */
     public void ukoncitHru(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Chces naozaj ukoncit hru?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -181,6 +216,11 @@ public class HomeController {
         //Platform.exit();
     }
 
+    /**
+     * Metoda spracuje klik na Panel Vychodov
+     *
+     *
+     */
     @FXML
     private void klikPanelVychodu(MouseEvent mouseEvent) {
         Area cil =  panelVychodu.getSelectionModel().getSelectedItem();
@@ -190,6 +230,11 @@ public class HomeController {
         zpracujPrikaz(prikaz);
     }
 
+    /**
+     * Metoda spracuje klik na napovedu
+     *
+     *
+     */
     @FXML
     private void napovedaKlik(ActionEvent actionEvent) {
         Stage napovedaStage = new Stage();
@@ -201,6 +246,11 @@ public class HomeController {
 
     }
 
+    /**
+     * Metoda spracuje klik na Panel Predmetov Inventara
+     *
+     *
+     */
     public void klikNewGame() {
         zpracujPrikaz("newGame");
     }
@@ -214,6 +264,11 @@ public class HomeController {
         aktualizujSeznamPredmetovArea();
     }
 
+    /**
+     * Metoda spracuje klik na Panel Predmetov oblasti
+     *
+     *
+     */
     public void klikPanelPredmetovArea(MouseEvent mouseEvent) {
         Item cil =  panelPredmetovArea.getSelectionModel().getSelectedItem();
         if (cil==null) return;

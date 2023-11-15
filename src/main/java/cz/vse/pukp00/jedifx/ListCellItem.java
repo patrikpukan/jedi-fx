@@ -4,6 +4,11 @@ import cz.vse.pukp00.jedifx.game.Item;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 
+/**
+ * Trieda zobrazuje graficke predmety
+ *
+ *
+ */
 public class ListCellItem extends ListCell<Item> {
     @Override
     protected void updateItem(Item item, boolean empty) {
