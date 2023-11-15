@@ -84,10 +84,13 @@ public class Inventory
     
     /**
      * Metoda vyhledá v inventari předmět s daným názvem a vrati ho.
-     *
-     * @param itemName název předmětu
      * @return vrateny predmet předmět; {@code null}, pokud předmět v oblasti není
      */
+    public Collection<Item> getItems() {
+        Collection<Item> items = new HashSet<>(contents.values());
+        return items;
+    }
+
     public Item getItem(String itemName)
     {
         return this.contents.get(itemName);

@@ -19,76 +19,88 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.vse.pukp00.jedifx.HomeController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" />
-      <ColumnConstraints />
-      <ColumnConstraints />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints vgrow="NEVER" />
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints vgrow="NEVER" />
+        <RowConstraints prefHeight="1.0" vgrow="SOMETIMES" />
+        <RowConstraints vgrow="NEVER" />
       <RowConstraints vgrow="NEVER" />
-    <RowConstraints prefHeight="1.0" vgrow="SOMETIMES" />
-    <RowConstraints vgrow="NEVER" />
-  </rowConstraints>
-   <children>
-      <MenuBar GridPane.columnSpan="3">
-        <menus>
-          <Menu mnemonicParsing="false" text="Hra">
+    </rowConstraints>
+    <children>
+        <MenuBar GridPane.columnSpan="3">
+            <menus>
+                <Menu mnemonicParsing="false" text="Hra">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#ukoncitHru" text="Ukoncit" />
+                        <MenuItem onAction="#napovedaKlik" text="Napoveda" />
+                        <MenuItem onAction="#klikNewGame" text="Nova hra" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <HBox spacing="10.0" GridPane.rowIndex="4">
+            <children>
+                <TextField fx:id="vstup" onAction="#odesliVstup" HBox.hgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </TextField>
+                <Button fx:id="tlacitkoOdesli" mnemonicParsing="false" onAction="#odesliVstup" text="Enter">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </Button>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+        <SplitPane dividerPositions="0.4" GridPane.rowIndex="2">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#ukoncitHru" text="Ukoncit" />
-                <MenuItem onAction="#napovedaKlik" text="Napoveda" />
+                <ListView fx:id="panelVychodu" onMouseClicked="#klikPanelVychodu" />
+                <TextArea fx:id="vystup" editable="false">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </TextArea>
             </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <HBox spacing="10.0" GridPane.rowIndex="3">
-         <children>
-            <TextField fx:id="vstup" onAction="#odesliVstup" HBox.hgrow="ALWAYS">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </TextField>
-            <Button fx:id="tlacitkoOdesli" mnemonicParsing="false" onAction="#odesliVstup" text="Enter">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </Button>
-         </children>
-         <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-         </padding>
-      </HBox>
-      <SplitPane dividerPositions="0.4" GridPane.rowIndex="2">
+        </SplitPane>
+        <TitledPane text="Mapa" GridPane.rowIndex="1">
+            <content>
+                <HBox alignment="TOP_CENTER">
+                    <children>
+                        <Pane>
+                            <children>
+                                <ImageView fitHeight="281.0" fitWidth="556.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@herniPlan.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="hrac" fitHeight="59.0" fitWidth="55.0" layoutX="14.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@hrac.jpeg" />
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </HBox>
+            </content>
+        </TitledPane>
+      <SplitPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
          <items>
-            <ListView fx:id="panelVychodu" onMouseClicked="#klikPanelVychodu" />
-            <TextArea fx:id="vystup" editable="false">
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                </padding>
-            </TextArea>
-         </items>
-      </SplitPane>
-      <TitledPane text="Mapa" GridPane.rowIndex="1">
-         <content>
             <HBox alignment="TOP_CENTER">
                <children>
-                  <Pane>
-                     <children>
-                        <ImageView fitHeight="281.0" fitWidth="556.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@herniPlan.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fx:id="hrac" fitHeight="59.0" fitWidth="55.0" layoutX="14.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@hrac.jpeg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
+                  <ListView fx:id="panelPredmetovInventar" onMouseClicked="#klikPanelPredmetovInventar" />
+                  <ListView fx:id="panelPredmetovArea" onMouseClicked="#klikPanelPredmetovArea" />
                </children>
             </HBox>
-         </content>
-      </TitledPane>
-   </children>
+         </items>
+      </SplitPane>
+    </children>
 </GridPane>

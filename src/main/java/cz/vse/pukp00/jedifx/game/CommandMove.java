@@ -63,8 +63,8 @@ public class CommandMove implements ICommand
         if (!currentArea.hasExit(targetAreaName)) {
             return "Do oblasti '" + targetAreaName + "' se odsud jít nedá.";
         }
-        System.out.println(currentArea.getName());
-        System.out.println(targetAreaName);
+        //System.out.println(currentArea.getName());
+        //System.out.println(targetAreaName);
         if (currentArea.getName()=="jazero") {
             //System.out.println("1");
             if (targetAreaName.contains("jaskyna")) {

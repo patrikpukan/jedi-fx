@@ -156,6 +156,15 @@ public class Area implements Comparable<Area>
         return exits;
     }
 
+    public Map<String, Item> getItems() {
+        return items;
+    }
+
+    public Collection<Item> getItemsFX() {
+        Collection<Item> newItems = new HashSet<>(items.values());
+        return newItems;
+    }
+
     /**
      * Metoda přidá předmět <i>(objekt třídy {@link Item})</i> do oblasti.
      *

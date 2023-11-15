@@ -2,6 +2,7 @@ package cz.vse.pukp00.jedifx;
 
 import cz.vse.pukp00.jedifx.game.Area;
 import cz.vse.pukp00.jedifx.game.Game;
+import cz.vse.pukp00.jedifx.game.Item;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +28,11 @@ public class HomeController {
     @FXML
     private ListView<Area> panelVychodu;
     @FXML
+    private ListView<Item> panelPredmetovInventar;
+    @FXML
+    private ListView<Item> panelPredmetovArea;
+
+    @FXML
     private Button tlacitkoOdesli;
 
     @FXML
@@ -38,6 +44,10 @@ public class HomeController {
     private Game game = new Game();
 
     private ObservableList<Area> seznamVychodu = FXCollections.observableArrayList();
+
+    private ObservableList<Item> seznamPredmetovInventar = FXCollections.observableArrayList();
+    private ObservableList<Item> seznamPredmetovArea = FXCollections.observableArrayList();
+
 
     private Map<String, Point2D> souradniceProstoru = new HashMap<>();
 
@@ -51,14 +61,24 @@ public class HomeController {
             }
         });
         panelVychodu.setItems(seznamVychodu);
+        panelPredmetovInventar.setItems(seznamPredmetovInventar);
+        panelPredmetovArea.setItems(seznamPredmetovArea);
         game.getWorld().registruj(ZmenaHry.ZMENA_MISTNOSTI, () -> {
             aktualizujSeznamVychodu();
             aktualizujPolohuHrace();
+            aktualizujSeznamPredmetovInventar();
+            aktualizujSeznamPredmetovArea();
         });
         game.registruj(ZmenaHry.KONEC_HRY, () -> aktualizujKonecHry());
         aktualizujSeznamVychodu();
+        aktualizujSeznamPredmetovInventar();
+        aktualizujSeznamPredmetovArea();
         vlozSouradnice();
         panelVychodu.setCellFactory(param -> new ListCellArea());
+        panelPredmetovInventar.setCellFactory(param -> new ListCellItem());
+        panelPredmetovArea.setCellFactory(param -> new ListCellItem());
+
+
     }
 
     private void vlozSouradnice() {
@@ -80,6 +100,24 @@ public class HomeController {
         seznamVychodu.addAll(game.getWorld().getCurrentArea().getExits());
     }
 
+    @FXML
+    private void aktualizujSeznamPredmetovInventar() {
+      //  System.out.print("aktualizuj PredmetyvInv");
+        seznamPredmetovInventar.clear();
+        seznamPredmetovInventar.addAll(game.getWorld().getPlayerInventory().getItems());
+        System.out.println(seznamPredmetovInventar);
+    }
+
+    @FXML
+    private void aktualizujSeznamPredmetovArea() {
+      //  System.out.print("aktualizuj PredmetyvArea");
+
+        seznamPredmetovArea.clear();
+        seznamPredmetovArea.addAll(game.getWorld().getCurrentArea().getItemsFX());
+        System.out.println(seznamPredmetovInventar);
+
+    }
+
     private void aktualizujPolohuHrace(){
         String menoProstoru = game.getWorld().getCurrentArea().getName();
         hrac.setLayoutX(souradniceProstoru.get(menoProstoru).getX());
@@ -94,6 +132,9 @@ public class HomeController {
         vstup.setDisable(game.isGameOver());
         tlacitkoOdesli.setDisable(game.isGameOver());
         panelVychodu.setDisable(game.isGameOver());
+        panelPredmetovInventar.setDisable(game.isGameOver());
+        panelPredmetovArea.setDisable(game.isGameOver());
+
     }
 
     @FXML
@@ -108,6 +149,21 @@ public class HomeController {
         vystup.appendText("> " + prikaz +"\n");
         String vysledek = game.process(prikaz);
         vystup.appendText(vysledek+"\n\n");
+
+        if (prikaz.equals("newGame")) {
+            vystup.clear();
+            game = new Game();
+            vystup.appendText("Nova hra zacina." + "\n");
+            vystup.appendText(game.getPrologue());
+            panelVychodu.getItems().clear();
+            game.getWorld().registruj(ZmenaHry.ZACATEK_HRY, () -> {
+                aktualizujPolohuHrace();
+                aktualizujSeznamVychodu();
+                aktualizujSeznamPredmetovInventar();
+                aktualizujSeznamPredmetovArea();
+            } );
+            initialize();
+        }
 
 
     }
@@ -139,5 +195,28 @@ public class HomeController {
         napovedaStage.show();
         wv.getEngine().load(getClass().getResource("napoveda.html").toExternalForm());
 
+    }
+
+    public void klikNewGame() {
+        zpracujPrikaz("newGame");
+    }
+    public void klikPanelPredmetovInventar(MouseEvent mouseEvent) {
+        Item cil =  panelPredmetovInventar.getSelectionModel().getSelectedItem();
+        if (cil==null) return;
+        String prikaz = "poloz " +cil.getName();
+        // game.process(prikaz);
+        zpracujPrikaz(prikaz);
+        aktualizujSeznamPredmetovInventar();
+        aktualizujSeznamPredmetovArea();
+    }
+
+    public void klikPanelPredmetovArea(MouseEvent mouseEvent) {
+        Item cil =  panelPredmetovArea.getSelectionModel().getSelectedItem();
+        if (cil==null) return;
+        String prikaz = "vezmi " +cil.getName();
+        // game.process(prikaz);
+        zpracujPrikaz(prikaz);
+        aktualizujSeznamPredmetovInventar();
+        aktualizujSeznamPredmetovArea();
     }
 }
