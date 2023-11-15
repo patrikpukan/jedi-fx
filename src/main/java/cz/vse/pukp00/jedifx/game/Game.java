@@ -148,7 +148,7 @@ public class Game implements PredmetPozorovani
      */
     public String getEpilogue()
     {
-        String result = "Díky, že sis zahrál(a).";
+        String result = "Gratulujeme.";
 
         if (world.isVictorious()) {
             result = "Vyhrál(a) jsi, zavolal si pomoc a coskoro ta zachrania.\n\n" + result;
