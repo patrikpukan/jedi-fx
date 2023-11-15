@@ -105,7 +105,7 @@ public class HomeController {
       //  System.out.print("aktualizuj PredmetyvInv");
         seznamPredmetovInventar.clear();
         seznamPredmetovInventar.addAll(game.getWorld().getPlayerInventory().getItems());
-        System.out.println(seznamPredmetovInventar);
+       // System.out.println(seznamPredmetovInventar);
     }
 
     @FXML
@@ -114,7 +114,7 @@ public class HomeController {
 
         seznamPredmetovArea.clear();
         seznamPredmetovArea.addAll(game.getWorld().getCurrentArea().getItemsFX());
-        System.out.println(seznamPredmetovInventar);
+        //System.out.println(seznamPredmetovInventar);
 
     }
 
@@ -149,6 +149,10 @@ public class HomeController {
         vystup.appendText("> " + prikaz +"\n");
         String vysledek = game.process(prikaz);
         vystup.appendText(vysledek+"\n\n");
+        aktualizujPolohuHrace();
+        aktualizujSeznamVychodu();
+        aktualizujSeznamPredmetovInventar();
+        aktualizujSeznamPredmetovArea();
 
         if (prikaz.equals("newGame")) {
             vystup.clear();
