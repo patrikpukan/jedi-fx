@@ -36,7 +36,7 @@
           <Menu mnemonicParsing="false" text="Hra">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#ukoncitHru" text="Ukoncit" />
-                <MenuItem onAction="#aktualizujSeznamVychodu" text="Aktualizuj" />
+                <MenuItem onAction="#napovedaKlik" text="Napoveda" />
             </items>
           </Menu>
         </menus>
