@@ -84,6 +84,7 @@ public class HomeController {
         aktualizujSeznamPredmetovInventar();
         aktualizujSeznamPredmetovArea();
         vlozSouradnice();
+        aktualizujPolohuHrace();
         panelVychodu.setCellFactory(param -> new ListCellArea());
         panelPredmetovInventar.setCellFactory(param -> new ListCellItem());
         panelPredmetovArea.setCellFactory(param -> new ListCellItem());
