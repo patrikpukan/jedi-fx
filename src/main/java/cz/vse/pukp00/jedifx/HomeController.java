@@ -88,6 +88,11 @@ public class HomeController {
         panelVychodu.setCellFactory(param -> new ListCellArea());
         panelPredmetovInventar.setCellFactory(param -> new ListCellItem());
         panelPredmetovArea.setCellFactory(param -> new ListCellItem());
+        vstup.setDisable(false);
+        tlacitkoOdesli.setDisable(false);
+        panelVychodu.setDisable(false);
+        panelPredmetovInventar.setDisable(false);
+        panelPredmetovArea.setDisable(false);
 
 
     }
@@ -196,6 +201,11 @@ public class HomeController {
                 aktualizujSeznamVychodu();
                 aktualizujSeznamPredmetovInventar();
                 aktualizujSeznamPredmetovArea();
+                vstup.setDisable(game.isGameOver());
+                tlacitkoOdesli.setDisable(game.isGameOver());
+                panelVychodu.setDisable(game.isGameOver());
+                panelPredmetovInventar.setDisable(game.isGameOver());
+                panelPredmetovArea.setDisable(game.isGameOver());
             } );
             initialize();
         }
