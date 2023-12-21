@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -74,6 +75,7 @@
             <content>
                 <HBox alignment="TOP_CENTER">
                     <children>
+                  <Label text="Prostory ve hre" />
                         <Pane>
                             <children>
                                 <ImageView fitHeight="281.0" fitWidth="556.0" pickOnBounds="true" preserveRatio="true">
@@ -96,8 +98,10 @@
          <items>
             <HBox alignment="TOP_CENTER">
                <children>
+                  <Label text="Veci v inventari" />
                   <ListView fx:id="panelPredmetovInventar" onMouseClicked="#klikPanelPredmetovInventar" />
                   <ListView fx:id="panelPredmetovArea" onMouseClicked="#klikPanelPredmetovArea" />
+                  <Label text="Veci v prostoru" />
                </children>
             </HBox>
          </items>
