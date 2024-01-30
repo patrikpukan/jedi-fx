@@ -80,6 +80,10 @@ public class HomeController {
             aktualizujSeznamPredmetovArea();
         });
         game.registruj(ZmenaHry.KONEC_HRY, () -> aktualizujKonecHry());
+        game.registruj(ZmenaHry.ZMENA_INVENTARE, () -> {
+            aktualizujSeznamPredmetovInventar();
+            aktualizujSeznamPredmetovArea();
+        });
         aktualizujSeznamVychodu();
         aktualizujSeznamPredmetovInventar();
         aktualizujSeznamPredmetovArea();

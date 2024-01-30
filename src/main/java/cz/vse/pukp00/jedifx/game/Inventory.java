@@ -1,5 +1,10 @@
 package cz.vse.pukp00.jedifx.game;
+import cz.vse.pukp00.jedifx.PredmetPozorovani;
+
 import java.util.*;
+import cz.vse.pukp00.jedifx.PredmetPozorovani;
+import cz.vse.pukp00.jedifx.Pozorovatel;
+import cz.vse.pukp00.jedifx.ZmenaHry;
 
 /**
  * Třída implementující inventar, jeho kapacitu, aktualne pridane predmety.
@@ -7,12 +12,13 @@ import java.util.*;
  * @author Patrik Pukan
  * @version ZS-2022, 2023-01-19
  */
-public class Inventory
+public class Inventory implements PredmetPozorovani
 {
     private String name;
     private Map<String, Item> contents;
     int currentSize;
-    
+
+    private Map<ZmenaHry, Set<Pozorovatel>> seznamPozorovatelu = new HashMap<>();
     /**
      * Konstruktor třídy, vytvoří inventar se zadaným názvem.
      *
@@ -24,6 +30,9 @@ public class Inventory
         this.name=name;
         this.contents = new TreeMap<>();
         this.currentSize=0;
+        for (ZmenaHry zmena : ZmenaHry.values()) {
+            seznamPozorovatelu.put(zmena, new HashSet<>());
+        }
     }
     /**
      * Metoda přidá předmět <i>(objekt třídy {@link Item})</i> do inventara.
@@ -35,6 +44,10 @@ public class Inventory
         if (this.currentSize<5) {
         this.contents.put(item.getName(), item);
         currentSize+=1;
+        upozorniPozorovatele(ZmenaHry.ZMENA_INVENTARE);
+        }
+        else {
+            System.out.println("Inventar je plny, nejprve musis neco vyhodit.");
         }
     }
     
@@ -106,5 +119,14 @@ public class Inventory
     {
         return this.contents.containsKey(itemName);
     }
-    
+
+    public void registruj(ZmenaHry zmena, Pozorovatel pozorovatel) {
+        seznamPozorovatelu.get(zmena).add(pozorovatel);
+    }
+
+    private void upozorniPozorovatele(ZmenaHry zmena) {
+        for (Pozorovatel pozorovatel : seznamPozorovatelu.get(zmena)) {
+            pozorovatel.aktualizuj();
+        }
+    }
 }

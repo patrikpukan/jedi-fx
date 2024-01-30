@@ -111,7 +111,6 @@ public class GameWorld implements PredmetPozorovani
      */
      public Inventory getPlayerInventory()
     {
-        upozorniPozorovatele(ZmenaHry.ZMENA_INVENTARE);
         return playerInventory;
     }
 
